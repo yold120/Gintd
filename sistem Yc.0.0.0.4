@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
+#include <string.h>//getline para guardar el contenido
+
+using namespace std;
+	//variables del admin
+
+	char correoadmin[20];
+	char nombreadmin[40];
+	char usuarioadmin[20];
+	char claveadmin[20];
+	char pseguridadadmin;
+	int edadadmin;
+
+void admin();
+
+int main()
+
+{
+
+	
+	
+	
+	
+	
+	
+	
+	admin();
+
+	system ("pause");
+	return 0;
+}
+
+void admin()
+{
+	
+	
+	ofstream  archivoadmin;
+	archivoadmin.open("admin.txt",ios::out);
+	
+	if (archivoadmin.fail())
+	{
+		cout << "no se puede abrir el archivo";
+		exit (1);
+	}	
+	
+	
+	
+	//ingresando datos del admin
+	cout<<"Bienvenido Sr.(ingrese nombre y apellido)?"<<endl;
+	cin.getline(nombreadmin,40);
+	
+	
+	
+	
+	
+	//ingresando datos en el txt
+	archivoadmin<<nombreadmin;
+	
+	
+	
+	
+	
+}
