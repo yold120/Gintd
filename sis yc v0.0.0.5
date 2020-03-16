@@ -1,0 +1,128 @@
+#include <iostream>
+#include <fstream>
+#include <windows.h>
+#include <stdlib.h>
+#include <string>//getline para guardar el contenido
+
+using namespace std;
+	//variables del admin
+
+	char correoadmin[20];
+	char nombreadmin[40];
+	char usuarioadmin[20];
+	char claveadmin[20];
+	char pseguridadadmin;
+	double edadadmin;
+
+void admin();
+
+int menu(){
+	
+	int x;
+	
+	cout<<"Bienvenido"<<endl<<endl;
+	cout<<"1.Agregar persona"<<endl;
+	cout<<"2. ver personal"<<endl;
+	cout<<"3. Salir"<<endl;
+	cout<<"Opcion"<<endl;
+	cin>>x;
+	return x;
+
+}
+
+
+void agregar(ofstream &es)
+{
+	system ("cls");
+	char nomuser[40];
+	char apeuser[40];
+	char ced[40];
+	char sex[20];//masculino o femenino
+	char direccion[60];
+	char correo[60];
+	char cel[20];
+	char tel[20];
+	char turno[20];//matutino o nocturno
+	char cargo[40];
+	char sueldoini[30];
+	char edad[20];
+	
+	es.open("Empleados.txt",ios::out | ios::app);
+
+	cout<<"Nombre: ";
+	cin.getline(nomuser,40);
+	cin.ignore();//para ignorar la ultima instruccion del getline
+	cout<<"Apellido: ";
+	cin.getline(apeuser,40);
+	cin.ignore();
+	cout<<"Cedula: ";
+	cin.getline(ced,40);
+	cin.ignore();
+	cout<<"Celular: ";
+	cin.getline(cel,20);
+	cin.ignore();	
+	cout<<"Telefono: ";
+	cin.getline(tel,20);
+	cin.ignore();
+	cout<<"Cargo: ";
+	cin.getline(cargo,40);
+	cin.ignore();
+	cout<<"Edad: ";
+	cin.getline(edad,10);
+	cin.ignore();
+	cout<<"Sexo: ";
+	cin.getline(sex,10);
+	cin.ignore();	
+	cout<<"Turno: ";
+	cin.getline(turno,20);
+	cin.ignore();	
+	cout<<"Sueldo Inicial: "<<endl;
+	cin.getline(sueldoini,30);
+	cin.ignore();
+	
+	es<<" "<<nomuser<<" "<<apeuser<<endl;
+	es<<" "<<ced<<" "<<edad<<endl;
+	es<<" "<<cel<<" "<<tel<<" "<<sex<<endl;
+	es<<" "<<turno<<" "<<cargo<<endl;
+	es<<" "<<sueldoini<<endl;
+	es.close();
+}
+
+int main()
+
+{
+
+	ofstream Esc;
+	int op;
+	do
+	{
+		system ("cls");
+		op = menu();
+		switch(op)
+		{
+			
+			case 1:
+				agregar(Esc);
+			break;
+		}
+		
+	}
+	while(op !=3);
+	return 0;
+	
+	
+	
+	
+	
+	admin();
+
+	system ("pause");
+	return 0;
+}
+
+void admin()
+{
+	
+	
+	
+}
