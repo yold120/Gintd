@@ -1,0 +1,108 @@
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+#include <fstream>
+#include <windows.h>
+
+using namespace std;
+
+
+int menu(){
+	
+	int x;
+	
+	cout<<"Bienvenido"<<endl<<endl;
+	cout<<"1. Agregar persona"<<endl;
+	cout<<"2. ver personal"<<endl;
+	cout<<"3. Salir"<<endl;
+	cout<<"Opcion"<<endl;
+	cin>>x;
+	return x;
+
+}
+
+void agregar(ofstream &es)
+{
+
+	system ("cls");
+	string nomuser;
+	string ced;
+	string sex;//masculino o femenino
+	string direccion;
+	string correo;
+	string cel;
+	string tel;
+	string turno;//matutino o nocturno
+	string cargo;
+	string sueldoini;
+	string edad;
+	
+	
+	es.open("Empleados.txt",ios::out | ios::app);
+	
+	cout<<"Nombre: ";
+	getline(cin,nomuser);
+	cin.ignore();//para ignorar la ultima instruccion del getline
+	cout<<"Cedula: ";
+	getline(cin,ced);
+	cin.ignore();
+	cout<<"Celular: ";
+	getline(cin,cel);
+	cin.ignore();	
+	cout<<"Telefono: ";
+	getline(cin,tel);
+	cin.ignore();
+	cout<<"Cargo: ";
+	getline(cin,cargo);
+	cin.ignore();
+	cout<<"Edad: ";
+	getline(cin,edad);
+	cin.ignore();
+	cout<<"Sexo: ";
+	getline(cin,sex);
+	cin.ignore();
+	cout<<"Turno: ";
+	getline(cin,turno);
+	cin.ignore();	
+	cout<<"Sueldo Inicial: "<<endl;
+	getline(cin,sueldoini);
+	cin.ignore();	
+	
+	es<<nomuser<<endl;
+	es<<ced<<endl;
+	es<<cel<<endl;
+	es<<tel<<endl;	
+	es<<cargo<<endl;	
+	es<<edad<<endl;	
+	es<<sex<<endl;	
+	es<<turno<<endl;	
+	es<<sueldoini<<endl;	
+	
+	es.close();
+
+}
+	
+
+int main()
+{
+	{
+
+	ofstream Esc;
+	int op;
+	do
+	{
+		system ("cls");
+		op = menu();
+		switch(op)
+		{
+			
+			case 1:
+				agregar(Esc);
+			break;
+		}
+		
+	}
+	while(op !=3);
+	return 0;
+	}
+}
