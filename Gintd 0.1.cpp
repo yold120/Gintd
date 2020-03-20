@@ -25,7 +25,7 @@
 using namespace std;
 
 //variables de productos
-	double id=0;
+	double id;
 	string descripcion;
 	string categoria;
 	double preciov;
@@ -57,7 +57,11 @@ using namespace std;
 	//variables de ayuda
 	string s = "\n";
 	string e=" ";
-
+	
+	ofstream Esc;
+	ofstream espr;
+	ifstream Lec;
+	
 //variablesdeentrada
 
 
@@ -87,18 +91,35 @@ using namespace std;
 
 	void regadmin(ofstream &es);
 	
-	void menuadmin();
+	void menuaprincipaldmin();
 	
 	void agregarp(ofstream &es);
+//////////////////////////////////////////////Productos
+	void agregarpr(ofstream &es);
+	
+	void modificarpr(ifstream &Lec);
+	
+	void buscarpr(ifstream &Lec);
+	
+	void modificarpr(ifstream &Lec);
+	
+	void borrarpr(ifstream &Lec);
+/////////////////////////////////////////////Servicios
+	void agregars(ofstream &es);
+
+	
+
+//////////////////////////////////////////////MENU PRINCIPAL	
 	
 	int menuprincipal(){
 	int x;
 	//color(9)
 	cout<<"Bienvenido"<<endl<<endl;
 	int col(10);
-	cout<<"1. Agregar persona"<<endl;
-	cout<<"2. ver personal"<<endl;
-	cout<<"3. Ajustes Personal"<<endl;
+	cout<<"1. Ver personal"<<endl;
+	cout<<"2. ver productos"<<endl;
+	cout<<"3. ver Servicios"<<endl;
+	cout<<"4. Mantenimiento"<<endl;
 	cout<<"Opcion"<<endl;
 	cin>>x;
 	return x;
@@ -329,7 +350,7 @@ using namespace std;
 							bool confirm = false;
 							if (user == admin && claveuser == claveadmin)
 								
-								menuadmin();							
+								menuaprincipaldmin();							
 							}
 							break;
 					case 2: //Acceder sin registro
@@ -394,7 +415,7 @@ using namespace std;
 	}
 
 	/////////////////////////////////////////////
-/////////////////////////////////////////////////funciones gestion de personal
+/////////////////////////////////////////////////personal
 void agregarp(ofstream &es)
 {
 
@@ -671,14 +692,269 @@ void buscarp(ifstream &Lec)
 
 	}
 
+////////////////////////////////////////////////productos
+
+	void agregarpr(ofstream &Lec)
+	{
+		string e=" ";
+
+	system ("cls");
+
+	espr.open("Productos.txt",ios::out|ios::app);
+
+	if(espr.is_open())
+	{
+	cout<<"========================"<<s;
+	cout<<"    Ingresar Personal   "<<s;
+	cout<<"========================"<<s;
+
+	//para ignorar la ultima instruccion del getline
+
+	/////////////////////////////ENTRADA DE DATOS RELACIONADOS CON EL PRODUCTO/////////////////////////
+	cout<<"Codigo---------:";
+	cin>>id;     
+	cout<<"Producto-------:";
+	cin>>descripcion;
+	cout<<"Categoria------:";
+	cin>>categoria;
+	cout<<"Precio Venta---:";
+	cin>>preciov;  
+	cout<<"Precion Compra-:";
+	cin>>precioc;  
+	cout<<"Proveedor------:";
+	cin>>proveedor;
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//if(verifica(ced))	
+	espr<<id<<s;     
+	espr<<descripcion<<s;
+	espr<<categoria<<s;
+	espr<<preciov<<s;  
+	espr<<precioc<<s;  
+	espr<<proveedor<<s;
+	espr.close();
+	}
+
+	else
+		cout<<"El archivo no se pudo abrir"<<s;
+	
+	}
+	
+	
+	void verpr(ifstream &Lec)
+	{
+		system ("cls");
+
+	Lec.open("Productos.txt",ios::in);
+
+	if(Lec.is_open())
+	{
+	cout<<"========================"<<s;
+	cout<<"Productos de la Empresa"<<s;
+	cout<<"========================"<<s;
+
+	Lec>>descripcion;
+
+	while(!Lec.eof())
+	{
+	/////////////////////////////////////////////////INTRODUCIENDO DATOS DE PRODUCTOS NUEVAMENTE//////////////////
+
+	Lec>>id;     
+	Lec>>descripcion;
+	Lec>>categoria;
+	Lec>>preciov;  
+	Lec>>precioc;  
+	Lec>>proveedor;	
+	/////////////////////////////////////////////////ACCEDIENDO A DATOS DE desprcripcion/////////////////////////////////////
+
+	cout<<"Codigo---------:"<<id<<s;
+	cout<<"Producto-------:"<<descripcion<<s;
+	cout<<"Categoria------:"<<categoria<<s;
+	cout<<"Precio Venta---:"<<preciov<<s;
+	cout<<"Precion Compra-:"<<precioc<<s;
+	cout<<"Proveedor------:"<<proveedor<<s;
+
+    cout<<"=========================="<<endl;
+    Lec>>descripcion;
+
+	}
+
+	Lec.close();
+	}
+
+	else
+	cout<<"El archivo no se pudo abrir"<<s;
+	system ("pause");
+	}
+	
+	void buscarpr(ifstream &Lec)
+	{
+		system("cls");
+
+	Lec.open("Productos.txt",ios::in);
+	int mid;
+	bool encontrado = false;
+	cout<<"Digite No. id: ";
+	cin>>mid;
+	Lec>>descripcion;
+	while(!Lec.eof() && !encontrado)
+	{
+
+		Lec>>id;     
+		Lec>>descripcion;
+		Lec>>categoria;
+		Lec>>preciov;  
+		Lec>>precioc;  
+		Lec>>proveedor;
 
 
+		if (id == mid)
+		{
+			cout<<"Codigo---------:"<<id<<s;
+			cout<<"Producto-------:"<<descripcion<<s;
+			cout<<"Categoria------:"<<categoria<<s;
+			cout<<"Precio Venta---:"<<preciov<<s;
+			cout<<"Precion Compra-:"<<precioc<<s;
+			cout<<"Proveedor------:"<<proveedor<<s;
+			encontrado = true;
+		}
+
+		Lec>>descripcion;
+
+	}
+	Lec.close();
+	if(!encontrado)
+	cout<<"dato no encontrado"<<s;
+	system("pause");	
+	}
+	
+	void modificarpr(ifstream &Lec)
+	{
+	system("cls");
+		string nomaux;
+		int mid;
+
+		Lec.open("Productos.txt",ios::in);
+		ofstream aux("auxiliar.txt",ios::out);
+		if (Lec.is_open())
+		{
+			cout<<"id---:";
+			cin>>mid;
+			Lec>>descripcion;
+			while(!Lec.eof())
+			{
+				Lec>>id;     
+				Lec>>categoria;
+				Lec>>preciov;  
+				Lec>>precioc;  
+				Lec>>proveedor;
+
+				if (id==mid)
+				{
+					cout<<"Nuevo Nombre---:";
+					cin>>nomaux;
+					aux<<nomaux<<e<<id<<e<<categoria<<e<<preciov<<e<<precioc<<e<<proveedor<<s;
+				}
+				else
+				{
+					aux<<descripcion<<e<<id<<e<<categoria<<e<<preciov<<e<<precioc<<e<<proveedor<<s;
+
+				}
+
+				Lec>>descripcion;
+			}
+			Lec.close();
+			aux.close();
+		}
+		else
+		cout<<"ERROR"<<s;
+		remove("Productos.txt");
+		rename("auxiliar.txt","Productos.txt");	
+	}
+	
+	void borrarpr(ifstream &Lec)
+	{
+		system("cls");
+		string nomaux;
+		string mcorreo;
+		string mcargo;
+		int mid;
+		string mnivel;
+		string msueldo;
+
+		Lec.open("Productos.txt",ios::in);
+		ofstream aux("auxiliar.txt",ios::out);
+		if (Lec.is_open())
+		{
+			cout<<"id---:";
+			cin>>mid;
+			Lec>>descripcion;
+			while(!Lec.eof())
+			{
+				Lec>>id;     
+				Lec>>descripcion;
+				Lec>>categoria;
+				Lec>>preciov;  
+				Lec>>precioc;  
+				Lec>>proveedor;
+
+
+				if (id==mid)
+				{
+					cout<<"Borrando......";
+					Sleep(2000);
+				}
+				else
+				{
+					aux<<id<<s;     
+					aux<<descripcion<<s;
+					aux<<categoria<<s;
+					aux<<preciov<<s;  
+					aux<<precioc<<s;  
+					aux<<proveedor<<s;
+				}
+
+				Lec>>descripcion;
+			}
+			Lec.close();
+			aux.close();
+		}
+		else
+		cout<<"ERROR"<<s;
+		remove("Productos.txt");
+		rename("auxiliar.txt","Productos.txt");
+		
+	}
+	
+
+//////////////////////////////////////////////////servicios
+/*	
+	void agregars(ifstream &Lec)
+	{
+		
+	}
+	void modificars(ifstream &Lec)
+	{
+		
+	}
+	void buscars(ifstream &Lec)
+	{
+		
+	}
+	void modificars(ifstream &Lec)
+	{
+		
+	}
+	void borrars(ifstream &Lec)
+	{
+*/
+	
 /////////////////////////////////////////menu administrador
-void menuadmin()
+void menuaprincipaldmin()
 {
 	
-	ofstream Esc;
-	ifstream Lec; 
+	 
+	
 	int op;
 	do
 	{
@@ -688,34 +964,113 @@ void menuadmin()
 		{
 			
 			case 1:
-				agregarp(Esc);
+				verp(Lec);
 			break;
 			case 2:
-				verp(Lec);
+				verpr(Lec);
+			break;
+			case 3:
+				//vers(Esc);
 			break;
 			case 4:
 				system ("cls");
-
 				int x;
-				cout<<"------Mantenimiento----"<<s;
-				cout<<"1.	Buscar Personal"<<s;
-				cout<<"2.	Modificar personal"<<s;
-				cout<<"3.	Borrar Personal"<<s;
-				cout<<"Opcion"<<s;
-				cin>>x;
-
+						cout<<"------Mantenimientos----"<<s;
+						cout<<"1.	Ajuste Personal"<<s;
+						cout<<"2.	Ajuste Productos"<<s;
+						cout<<"3.	Ajuste Servicios"<<s;
+						cout<<"4.	salir"<<s;
+						cout<<"Opcion"<<s;
+						cin>>x;
 				switch (x)
 				{
-					case 1:
-						buscarp(Lec);
-					break;
-					case 2:
-						modificarp(Lec);
-					break;
-					case 3: 
-						borrarp(Lec);
-					break;
+					case 1: //personal
+						system ("cls");
+		
+						
+						cout<<"------M. PERSONAL----"<<s;
+						cout<<"1.	Agregar personal"<<s;
+						cout<<"2.	Buscar Personal"<<s;
+						cout<<"3.	Modificar personal"<<s;
+						cout<<"4.	Borrar Personal"<<s;
+						cout<<"Opcion"<<s;
+						cin>>x;
+		
+						switch (x)
+						{
+							case 1:
+								agregarp(Esc);
+							break;
+							case 2:
+								buscarp(Lec);
+							break;
+							case 3:
+								modificarp(Lec);
+							break;
+							case 4: 
+								borrarp(Lec);
+							break;
+						}
+						
+					case 2: // productos
+						system ("cls");
+		
+						
+						cout<<"------M. PRODUCTOS----"<<s;
+						cout<<"1.	Agregar productos"<<s;
+						cout<<"2.	Buscar productos"<<s;
+						cout<<"3.	Modificar productos"<<s;
+						cout<<"4.	Borrar productos"<<s;
+						cout<<"Opcion"<<s;
+						cin>>x;
+		
+						switch (x)
+						{
+							
+							case 1:
+								agregarpr(Esc);
+							break;
+							case 2:
+								buscarpr(Lec);
+							break;
+							case 3:
+								modificarpr(Lec);
+							break;
+							case 4: 
+								borrarpr(Lec);
+							break;
+						}
+					
+					case 3:// SERVICIOS
+						system ("cls");
+		
+						cout<<"------M. SERVICIOS----"<<s;
+						cout<<"1.	Agregar Servicio"<<s;
+						cout<<"2.	Buscar Servicio"<<s;
+						cout<<"3.	Modificar Servicio"<<s;
+						cout<<"4.	Borrar Servicio"<<s;
+						cout<<"Opcion"<<s;
+						cin>>x;
+		
+						switch (x)
+						{
+							case 1:
+								//agregars(Esc);
+							break;
+							case 2:
+								//buscars(Lec);
+							break;
+							case 3:
+								//modificars(Lec);
+							break;
+							case 4: 
+								//borrars(Lec);
+							break;
+						}
+					
+					
 				}
+					
 
 			break;
 		}
