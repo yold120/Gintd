@@ -1,3 +1,7 @@
+//a;adirclase admin (a)
+//a;adir classede user (u) 
+
+
 #include <iostream>
 
 #include <string.h>
@@ -60,9 +64,10 @@ using namespace std;
 	
 	ofstream Esc;
 	ofstream espr;
-	ifstream Lec;
+	ofstream ess;
 	
 //variablesdeentrada
+	bool enter = true;
 
 
 
@@ -72,6 +77,8 @@ using namespace std;
 ////////////////////////////////////////////dise;os
 	void gotoxy();
 
+	void back();
+	
 	void cleaner();
 
 	void stylecu();
@@ -414,8 +421,9 @@ using namespace std;
 		cout<<"El archivo no se pudo abrir"<<s;
 	}
 
-	/////////////////////////////////////////////
-/////////////////////////////////////////////////personal
+/////////////////////////////////////////////
+/////////////////////////////////////////////personal
+/////////////////////////////////////////////
 void agregarp(ofstream &es)
 {
 
@@ -523,9 +531,6 @@ void verp(ifstream &Lec)
 	cout<<"El archivo no se pudo abrir"<<s;
 	system ("pause");
 
-
-
-
 }
 
 void buscarp(ifstream &Lec)
@@ -574,11 +579,14 @@ void buscarp(ifstream &Lec)
 
 		Lec>>nomuser;
 
-	}
-	Lec.close();
+		}
+		Lec.close();
 	if(!encontrado)
+	{
 	cout<<"dato no encontrado"<<s;
 	system("pause");
+	}
+	system ("pause");
 
 }
 
@@ -629,12 +637,18 @@ void buscarp(ifstream &Lec)
 			}
 			Lec.close();
 			aux.close();
+			
 		}
+		
 		else
+		{
 		cout<<"ERROR"<<s;
 		remove("Empleados.txt");
 		rename("auxiliar.txt","Empleados.txt");
+		}
+		system ("pause");
 
+		
 	}
 
 	void borrarp(ifstream &Lec)
@@ -686,13 +700,18 @@ void buscarp(ifstream &Lec)
 			aux.close();
 		}
 		else
+		{
+		
 		cout<<"ERROR"<<s;
 		remove("Empleados.txt");
 		rename("auxiliar.txt","Empleados.txt");
+		}
+		system ("pause");
+
 
 	}
 
-////////////////////////////////////////////////productos
+////////////////////////////////////////////////PRODUCTOS
 
 	void agregarpr(ofstream &Lec)
 	{
@@ -705,7 +724,7 @@ void buscarp(ifstream &Lec)
 	if(espr.is_open())
 	{
 	cout<<"========================"<<s;
-	cout<<"    Ingresar Personal   "<<s;
+	cout<<"    Ingresar Productos  "<<s;
 	cout<<"========================"<<s;
 
 	//para ignorar la ultima instruccion del getline
@@ -736,7 +755,11 @@ void buscarp(ifstream &Lec)
 	}
 
 	else
+	{
 		cout<<"El archivo no se pudo abrir"<<s;
+	}
+		system ("pause");
+
 	
 	}
 	
@@ -783,11 +806,269 @@ void buscarp(ifstream &Lec)
 	}
 
 	else
+	{
+	
+	cout<<"El archivo no se pudo abrir"<<s;
+	}
+		system ("pause");
+
+	}
+	
+	
+	void buscarpr(ifstream &Lec)
+	{
+		system("cls");
+
+	Lec.open("Productos.txt",ios::in);
+	int mid;
+	bool encontrado = false;
+	cout<<"Digite No. id: ";
+	cin>>mid;
+	Lec>>descripcion;
+	while(!Lec.eof() && !encontrado)
+	{
+
+		Lec>>id;     
+		Lec>>descripcion;
+		Lec>>categoria;
+		Lec>>preciov;  
+		Lec>>precioc;  
+		Lec>>proveedor;
+
+
+		if (id == mid)
+		{
+			cout<<"Codigo---------:"<<id<<s;
+			cout<<"Producto-------:"<<descripcion<<s;
+			cout<<"Categoria------:"<<categoria<<s;
+			cout<<"Precio Venta---:"<<preciov<<s;
+			cout<<"Precion Compra-:"<<precioc<<s;
+			cout<<"Proveedor------:"<<proveedor<<s;
+			encontrado = true;
+		}
+
+		Lec>>descripcion;
+
+	}
+	Lec.close();
+	if(!encontrado)
+	{
+	
+	cout<<"dato no encontrado"<<s;
+	}
+	system("pause");	
+	}
+	
+	void modificarpr(ifstream &Lec)
+	{
+	system("cls");
+		string nomaux;
+		int mid;
+
+		Lec.open("Productos.txt",ios::in);
+		ofstream aux("auxiliar.txt",ios::out);
+		if (Lec.is_open())
+		{
+			cout<<"id---:";
+			cin>>mid;
+			Lec>>descripcion;
+			while(!Lec.eof())
+			{
+				Lec>>id;     
+				Lec>>categoria;
+				Lec>>preciov;  
+				Lec>>precioc;  
+				Lec>>proveedor;
+
+				if (id==mid)
+				{
+					cout<<"Nuevo Nombre---:";
+					cin>>nomaux;
+					aux<<nomaux<<e<<id<<e<<categoria<<e<<preciov<<e<<precioc<<e<<proveedor<<s;
+				}
+				else
+				{
+					aux<<descripcion<<e<<id<<e<<categoria<<e<<preciov<<e<<precioc<<e<<proveedor<<s;
+
+				}
+
+				Lec>>descripcion;
+			}
+			Lec.close();
+			aux.close();
+		}
+		else
+		{
+		
+		cout<<"ERROR"<<s;
+		remove("Productos.txt");
+		rename("auxiliar.txt","Productos.txt");	
+		}
+		system ("pause");
+
+		
+	}
+	
+	void borrarpr(ifstream &Lec)
+	{
+		system("cls");
+		string nomaux;
+		string mcorreo;
+		string mcargo;
+		int mid;
+		string mnivel;
+		string msueldo;
+
+		Lec.open("Productos.txt",ios::in);
+		ofstream aux("auxiliar.txt",ios::out);
+		if (Lec.is_open())
+		{
+			cout<<"id---:";
+			cin>>mid;
+			Lec>>descripcion;
+			while(!Lec.eof())
+			{
+				Lec>>id;     
+				Lec>>descripcion;
+				Lec>>categoria;
+				Lec>>preciov;  
+				Lec>>precioc;  
+				Lec>>proveedor;
+
+
+				if (id==mid)
+				{
+					cout<<"Borrando......";
+					Sleep(2000);
+				}
+				else
+				{
+					aux<<id<<s;     
+					aux<<descripcion<<s;
+					aux<<categoria<<s;
+					aux<<preciov<<s;  
+					aux<<precioc<<s;  
+					aux<<proveedor<<s;
+				}
+
+				Lec>>descripcion;
+			}
+			Lec.close();
+			aux.close();
+		}
+		else
+		{
+		
+		cout<<"ERROR"<<s;
+		remove("Productos.txt");
+		rename("auxiliar.txt","Productos.txt");
+		}
+			system ("pause");
+
+		
+	}
+	
+///////////////////////////////////////////////SERVICIOS
+	
+	void agregars(ofstream &Lec)
+	{
+		
+
+		string e=" ";
+
+	system ("cls");
+
+	ess.open("Servicios.txt",ios::out|ios::app);
+
+	if(ess.is_open())
+	{
+	cout<<"========================"<<s;
+	cout<<"    Ingresar Servicios   "<<s;
+	cout<<"========================"<<s;
+
+	//para ignorar la ultima instruccion del getline
+
+	/////////////////////////////ENTRADA DE DATOS RELACIONADOS CON EL PRODUCTO/////////////////////////
+	char serv[80];
+	char tserv[80];
+	char descripcionserv[80];
+	double precios;
+	double preciomin;
+	double preciomax;
+	cout<<"Tipo de servicio---:";
+	cin.get(tserv,79);
+	cout<<"Servicio-----------:";
+	cin.get(serv,79);
+	cout<<"Categoria----------:";
+	cin.get(descripcionserv,79);
+	cout<<"Precio Minimo----:";
+	cin>>preciomin;  
+	cout<<"Precio Maximo----:";
+	cin>>preciomax;
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//if(verifica(ced))	
+	ess<<tserv<<s;     
+	ess<<serv<<s;
+	ess<<descripcionserv<<s;
+	ess<<preciomin<<s;  
+	ess<<preciomax<<s;
+	ess.close();
+	}
+
+	else
+		cout<<"El archivo no se pudo abrir"<<s;
+	
+	}
+	
+	/*
+	void vers(ifstream &Lec)
+	{
+		system ("cls");
+
+	Lec.open("Productos.txt",ios::in);
+
+	if(Lec.is_open())
+	{
+	cout<<"========================"<<s;
+	cout<<"Productos de la Empresa"<<s;
+	cout<<"========================"<<s;
+
+	Lec>>descripcion;
+
+	while(!Lec.eof())
+	{
+	/////////////////////////////////////////////////INTRODUCIENDO DATOS DE PRODUCTOS NUEVAMENTE//////////////////
+
+	Lec>>id;     
+	Lec>>descripcion;
+	Lec>>categoria;
+	Lec>>preciov;  
+	Lec>>precioc;  
+	Lec>>proveedor;	
+	/////////////////////////////////////////////////ACCEDIENDO A DATOS DE desprcripcion/////////////////////////////////////
+
+	cout<<"Codigo---------:"<<id<<s;
+	cout<<"Producto-------:"<<descripcion<<s;
+	cout<<"Categoria------:"<<categoria<<s;
+	cout<<"Precio Venta---:"<<preciov<<s;
+	cout<<"Precion Compra-:"<<precioc<<s;
+	cout<<"Proveedor------:"<<proveedor<<s;
+
+    cout<<"=========================="<<endl;
+    Lec>>descripcion;
+
+	}
+
+	Lec.close();
+	}
+
+	else
 	cout<<"El archivo no se pudo abrir"<<s;
 	system ("pause");
 	}
 	
-	void buscarpr(ifstream &Lec)
+	void buscars(ifstream &Lec)
 	{
 		system("cls");
 
@@ -828,7 +1109,7 @@ void buscarp(ifstream &Lec)
 	system("pause");	
 	}
 	
-	void modificarpr(ifstream &Lec)
+	void modificars(ifstream &Lec)
 	{
 	system("cls");
 		string nomaux;
@@ -872,7 +1153,7 @@ void buscarp(ifstream &Lec)
 		rename("auxiliar.txt","Productos.txt");	
 	}
 	
-	void borrarpr(ifstream &Lec)
+	void borrars(ifstream &Lec)
 	{
 		system("cls");
 		string nomaux;
@@ -926,35 +1207,17 @@ void buscarp(ifstream &Lec)
 		
 	}
 	
-
-//////////////////////////////////////////////////servicios
-/*	
-	void agregars(ifstream &Lec)
-	{
-		
-	}
-	void modificars(ifstream &Lec)
-	{
-		
-	}
-	void buscars(ifstream &Lec)
-	{
-		
-	}
-	void modificars(ifstream &Lec)
-	{
-		
-	}
-	void borrars(ifstream &Lec)
-	{
-*/
+	*/
+	
+	
+	
 	
 /////////////////////////////////////////menu administrador
-void menuaprincipaldmin()
-{
-	
-	 
-	
+	void menuaprincipaldmin()
+	{
+	ifstream Lec;
+
+	menup:
 	int op;
 	do
 	{
@@ -965,6 +1228,7 @@ void menuaprincipaldmin()
 			
 			case 1:
 				verp(Lec);
+
 			break;
 			case 2:
 				verpr(Lec);
@@ -982,6 +1246,7 @@ void menuaprincipaldmin()
 						cout<<"4.	salir"<<s;
 						cout<<"Opcion"<<s;
 						cin>>x;
+						
 				switch (x)
 				{
 					case 1: //personal
@@ -1011,10 +1276,11 @@ void menuaprincipaldmin()
 								borrarp(Lec);
 							break;
 						}
-						
+					break;
+												
 					case 2: // productos
 						system ("cls");
-		
+						
 						
 						cout<<"------M. PRODUCTOS----"<<s;
 						cout<<"1.	Agregar productos"<<s;
@@ -1026,9 +1292,10 @@ void menuaprincipaldmin()
 		
 						switch (x)
 						{
-							
+
 							case 1:
 								agregarpr(Esc);
+
 							break;
 							case 2:
 								buscarpr(Lec);
@@ -1040,6 +1307,7 @@ void menuaprincipaldmin()
 								borrarpr(Lec);
 							break;
 						}
+					break;
 					
 					case 3:// SERVICIOS
 						system ("cls");
@@ -1055,7 +1323,7 @@ void menuaprincipaldmin()
 						switch (x)
 						{
 							case 1:
-								//agregars(Esc);
+								agregars(Esc);
 							break;
 							case 2:
 								//buscars(Lec);
@@ -1067,16 +1335,10 @@ void menuaprincipaldmin()
 								//borrars(Lec);
 							break;
 						}
-					
-					
-				}
-					
-
+					break;
+				}	
 			break;
 		}
-		
 	}
 	while(1);
-
 }
-
