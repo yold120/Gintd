@@ -90,6 +90,13 @@ using namespace std;
 	
 	string tuser;
 
+    int count=1;
+    
+    int intentos=6;
+    
+    string administrador = "a";
+    
+    string usuario = "u";
 
 
 
@@ -365,8 +372,11 @@ using namespace std;
 				///// casos de menus
 
 				do 
-
+			
 				{
+					
+					count++;
+
 					switch(y) 
 					{
 					case 0: //Ingresar
@@ -398,15 +408,19 @@ using namespace std;
                {
                	
                	system("cls");
-               	
+
 			   	cout << "File open.\n";
 			   	
 			   	cout<<"Enter Username: ";
                	getline(cin,user);
+               	cout<<"Enter Clave: ";
+               	getline(cin,claveuser);
 			   	
-
+				
 			   	while(!Lec.eof()&& !encontrado)
 			   	{
+
+
 				getline(Lec,nomuser,'\n');
 			   	getline(Lec, direc,'\n');	
 				getline(Lec, ced,'\n');	
@@ -422,41 +436,51 @@ using namespace std;
 				getline(Lec, clave,'\n');	
 				getline(Lec, tuser,'\n');	
 				
-				if (user == nomuser)
+				
+				 
+				
+				if (user == nomuser&& claveuser== clave && administrador == tuser)
                 {	
                		encontrado = true;
                		menuprincipaladmin();
            		}
+           		
+           		
 				
            		}
+           		
+           		
+           		while(!encontrado&&count>5);
+    
+           		if (!encontrado)
+           		cout<<"Usuario o contraseña incorrectas\n";
+           		cout<<"Intentos permitidos"<<intentos-count;
+           		
+           		if (count == 5){cout<<"Error de acceso"; }
+           	}
+           		
            		
            		Lec.close();
 
 
-                if(!encontrado) 
-                {
-				
-				cout << "error";
-				
-				}
+                
 				
 				}
                
+			
                
-
                
-               
-			}
 			
 			
-								
+			
+						 	
 				
 				
 				
 				
 				
-								
-							
+						 
+						
 							break;
 					case 2: //Acceder sin registro
 
